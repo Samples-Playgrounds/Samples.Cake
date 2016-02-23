@@ -1,11 +1,16 @@
-var target = Argument("target", "clean");
+var target = Argument<string>("target", "Package");
+var config = Argument<string>("config", "Release");
 
 Task("clean")
     .Does
         (
             () =>
             {
-                Information("target = {0}", this);
+                Information("clean");
+				// Clean directories.
+				CleanDirectory("./output");
+				CleanDirectory("./output/bin");
+				CleanDirectories("./src/**/bin/" + config);
             }    
         );
     
@@ -14,9 +19,26 @@ Task("build")
         (
             () =>
             {
-                Information("target = {0}", this);
-            }    
-        );
+                Information("build");
+				if(IsRunningOnWindows())
+				{
+					// Build the solution using MSBuild.
+					MSBuild	
+					(
+						"./Solution.sln", 
+						settings => settings.SetConfiguration(config)
+					);     
+				}
+				else
+				{
+					XBuild	
+					(
+						"./Solution.sln", 
+						settings => settings.SetConfiguration(config)
+					);     
+				}
+			}
+		);
         
 Task("rebuild")
     .IsDependentOn("clean")
@@ -25,10 +47,35 @@ Task("rebuild")
         (
             () =>
             {
-                Information("target = {0}", this);
+                Information("rebuild");
             }    
         );
         
+		
+		
+Task("package")
+    .IsDependentOn("build")
+    .Does
+        (
+            () =>
+            {
+                Information("package");
+				
+				var path = "./App.XamarinAndroid/bin/" + config;    
+				var files = 
+						GetFiles(path + "/**/*.dll") 
+						+ 
+						GetFiles(path + "/**/*.exe")
+						;
+
+				// Copy all exe and dll files to the output directory.
+				CopyFiles(files, "./output/bin");
+				
+				// Zip all files in the bin directory.
+				Zip("./output/bin", "./output/build.zip");
+            }    
+        );
+		
     
 //RunTarget("clean");
-RunTarget("rebuild");
+RunTarget("package");

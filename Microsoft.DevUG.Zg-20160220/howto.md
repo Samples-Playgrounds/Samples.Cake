@@ -89,7 +89,9 @@ Chocolatey Package version of Cake. This means that you can simply do:
 choco install cake.portable
 
 
+Sample
 
+*	[https://github.com/cake-build/example/blob/master/build.cake](https://github.com/cake-build/example/blob/master/build.cake)
 
 
 https://github.com/cake-build/bootstrapper/blob/master/res/scripts/build.cake

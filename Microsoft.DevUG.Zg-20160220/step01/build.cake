@@ -5,7 +5,7 @@ Task("clean")
         (
             () =>
             {
-                Information("target = {0}", this);
+                Information("target = clean");
             }    
         );
     
@@ -14,21 +14,19 @@ Task("build")
         (
             () =>
             {
-                Information("target = {0}", this);
+                Information("target = clean");
             }    
         );
         
 Task("rebuild")
-    .IsDependentOn("clean")
-    .IsDependentOn("build")
     .Does
         (
             () =>
             {
-                Information("target = {0}", this);
+                Information("target = rebuild");
             }    
         );
-        
     
-//RunTarget("clean");
-RunTarget("rebuild");
+RunTarget("clean");
+//RunTarget("build");
+//RunTarget("rebuild");

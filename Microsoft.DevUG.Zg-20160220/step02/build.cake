@@ -5,16 +5,17 @@ Task("clean")
         (
             () =>
             {
-                Information("target = {0}", this);
+                Information("target = clean");
             }    
         );
     
 Task("build")
+    
     .Does
         (
             () =>
             {
-                Information("target = {0}", this);
+                Information("target = build");
             }    
         );
         
@@ -25,10 +26,25 @@ Task("rebuild")
         (
             () =>
             {
-                Information("target = {0}", this);
+                Information("target = rebuild");
             }    
         );
         
+Task("package")
+    .IsDependentOn("build")
+    .WithCriteria
+        (
+            DateTime.Now.DayOfWeek == DayOfWeek.Sunday
+            //() => DateTime.Now.DayOfWeek == DayOfWeek.Sunday
+        )
+    .Does
+        (
+            () =>
+            {
+                Information("target = package");
+            }    
+        );
     
 //RunTarget("clean");
-RunTarget("rebuild");
+//RunTarget("rebuild");
+RunTarget("package");

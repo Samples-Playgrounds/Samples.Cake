@@ -1,18 +1,25 @@
-# Microsoft DevUG Zagreb 2016-02-24
+# Cake build system
 
-*	build systems
+Microsoft DevUG Zagreb 2016-02-24
+
+## Build Systems
+
 	*	make
+	*	CMake
+	*	TFS Build 
 	*	rake
-	*	fake
+	*	FAKE
+	*	psake
 	*	nake
+		[https://github.com/yevhen/Nake](https://github.com/yevhen/Nake)		
 
 
 ## Intro
 
-http://cakebuild.net/
-
 Cake (C# Make)
 
+*	Domain = Build System
+*	DSL = Cake Build Language
 *	cross platform build automation system 
 *	with a C# DSL to do things like 
 	*	compiling code, 
@@ -23,13 +30,16 @@ Cake (C# Make)
 	*	....
 *	built on top of the Roslyn and Mono compiler 
 	*	enables user to write build scripts in C#.
+*	Cross platform - available on
+	*	Windows, 
+	*	Linux and 
+	*	OS X.
+
+	
+*	[http://cakebuild.net/](http://cakebuild.net/)	
 
 
-Domain - Build System
-
-DSL - Cake Build Language
-
-DSL Domain Specific Language
+### DSL Domain Specific Language
 
 	*	various methods and properties which make up the Cake build language
 	*	made up of script aliases, that offers specific functionality within 		
@@ -37,19 +47,14 @@ DSL Domain Specific Language
 		method for ICakeContext.
 
 
-http://cakebuild.net/dsl
+[http://cakebuild.net/dsl](http://cakebuild.net/dsl)		
 
 
 
-Cross platform - available on
-
-	*	Windows, 
-	*	Linux and 
-	*	OS X.
-
+## Build Systems supported
 
 build systems supported:
-	*Cake is built to behave in the same way on:
+	*	Cake is built to behave in the same way on:
 		*	local (own machine)
 		*	CI systems	
 			*	TFS, 
@@ -59,7 +64,7 @@ build systems supported:
 			*	VSO 
 
 
-Build Tools Supported
+## Build Tools Supported
 
 	*	MSBuild
 	*	MSTest
@@ -74,29 +79,50 @@ Build Tools Supported
 	*	SignTool
 
 
-Open source
+## Open source
 
 *	source code for Cake is hosted on GitHub 
 	includes everything needed to build it
 
+## Installation
+
+### Chocolatey Package Manager 
+
+Chocolatey Package version of Cake. 
+
+	choco install cake.portable
+
+### Install the Cake bootstrapper
+
+The bootstrapper is used to download Cake and the tools required by 
+the build script.
+
+Windows
+
+    Invoke-WebRequest http://cakebuild.net/bootstrapper/windows -OutFile build.ps1
+
+Linux
+
+    curl -Lsfo build.sh http://cakebuild.net/bootstrapper/linux
+    wget -O build.sh http://cakebuild.net/bootstrapper/linux    
+    
+OS X
+
+    curl -Lsfo build.sh http://cakebuild.net/bootstrapper/osx
+    wget -O build.sh http://cakebuild.net/bootstrapper/linux    
 
 
-# Installation
-
-
-Chocolatey Package version of Cake. This means that you can simply do:
-
-choco install cake.portable
-
-
-Sample
+	
+## Sample
 
 *	[https://github.com/cake-build/example/blob/master/build.cake](https://github.com/cake-build/example/blob/master/build.cake)
 
 
 https://github.com/cake-build/bootstrapper/blob/master/res/scripts/build.cake
 
+### Running
 
+Cake.exe build.cake -target=Package -verbosity=diagnostic
 
 ### Task
 

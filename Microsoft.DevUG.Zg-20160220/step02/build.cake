@@ -34,7 +34,7 @@ Task("package")
     .IsDependentOn("build")
     .WithCriteria
         (
-            DateTime.Now.DayOfWeek == DayOfWeek.Sunday
+            DateTime.Now.DayOfWeek != DayOfWeek.Sunday
             //() => DateTime.Now.DayOfWeek == DayOfWeek.Sunday
         )
     .Does

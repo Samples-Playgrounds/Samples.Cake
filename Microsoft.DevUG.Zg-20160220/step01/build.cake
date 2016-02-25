@@ -28,5 +28,5 @@ Task("rebuild")
         );
     
 RunTarget("clean");
-//RunTarget("build");
+RunTarget("build");
 //RunTarget("rebuild");

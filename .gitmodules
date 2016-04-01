@@ -4,3 +4,9 @@
 [submodule "external/cake[]moljac"]
 	path = external/cake[]moljac
 	url = https://github.com/moljac/cake.git
+[submodule "external/HolisticWare.Cake.Process.Shell"]
+	path = external/HolisticWare.Cake.Process.Shell
+	url = https://github.com/moljac/HolisticWare.Cake.Process.Shell.git
+[submodule "external/HolisticWare.Cake.Solution.Project"]
+	path = external/HolisticWare.Cake.Solution.Project
+	url = https://github.com/moljac/HolisticWare.Cake.Solution.Project.git

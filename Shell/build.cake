@@ -12,10 +12,26 @@ public int Shell(string source)
     foreach (string command in commands)
     {
         string cmd_tmp = command.TrimStart();
+        if(IsRunningOnWindows())
+        {
+            if (cmd_tmp.StartsWith("::"))
+            {
+                continue;
+            }
+        }
+        if(IsRunningOnUnix())
+        {
+            if (cmd_tmp.StartsWith("#"))
+            {
+                continue;
+            }
+        }
         int idx = cmd_tmp.IndexOf(" ", 0);
+        int len = cmd_tmp.Length;
 
         Information("command  = " + cmd_tmp);
         Information("    idx  = " + idx);
+        Information("    len  = " + len);
         
         string process_executable = null;
         string process_args = null;
@@ -23,7 +39,9 @@ public int Shell(string source)
         if (idx > 0)
         {
             process_executable = cmd_tmp.Substring(0, idx);
-            process_args = cmd_tmp.Substring(idx, cmd_tmp.Length - 1);
+            process_args = cmd_tmp.Substring(idx + 1, len - idx - 1);
+            
+        StartProcess (process_executable, process_args);
         }
         
         Information("    process_executable  = " + process_executable);
@@ -60,18 +78,25 @@ Task("external-02")
             {
                 Information($"target external");
                 
+                Shell("rm -fr ./source");
+                
+                Shell("ls -al");
+                
                 if (!DirectoryExists ("./source"))
                     CreateDirectory ("./source");
 
                 string command = 
                         $"
-                            git -C source init
-                            git -C source remote add origin {REPO_URL}
-                            git -C source fetch
-                            git -C source checkout -tf origin/{REPO_BRANCH}
-                            git -C source checkout -f {REPO_COMMIT}
+                            # git -C source init
+                            # git -C source remote add origin {REPO_URL}
+                            # git -C source fetch
+                            # git -C source checkout -tf origin/{REPO_BRANCH}
+                            # git -C source checkout -f {REPO_COMMIT}
+                            
+                            git clone --recursive https://github.com/xamarin/xamarin.auth.git source
                          ";
                          
+                Shell("ls -al");
                 Shell(command);
             }    
         );

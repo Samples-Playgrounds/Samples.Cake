@@ -12,8 +12,22 @@ public int Shell(string source)
     foreach (string command in commands)
     {
         string cmd_tmp = command.TrimStart();
-        
+        int idx = cmd_tmp.IndexOf(" ", 0);
+
         Information("command  = " + cmd_tmp);
+        Information("    idx  = " + idx);
+        
+        string process_executable = null;
+        string process_args = null;
+        
+        if (idx > 0)
+        {
+            process_executable = cmd_tmp.Substring(0, idx);
+            process_args = cmd_tmp.Substring(idx, cmd_tmp.Length - 1);
+        }
+        
+        Information("    process_executable  = " + process_executable);
+        Information("    process_args        = " + process_args);
     }
     
     return 0;

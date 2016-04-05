@@ -1,3 +1,5 @@
+#load "utilities.shell.cake"
+
 var target = Argument("target", "clean");
 
 var GIT_PATH = EnvironmentVariable ("GIT_EXE") ?? (IsRunningOnWindows () ? "C:\\Program Files (x86)\\Git\\bin\\git.exe" : "git");
@@ -5,51 +7,6 @@ var REPO_URL = "git@github.com:Xamarin/Xamarin.Auth.git";
 var REPO_BRANCH = "portable-bait-and-switch";
 var REPO_COMMIT = "df9b0ab1cf3fbd81ea8a1aec9964300b87c2e962";  // moljac 2016-03-08 1.3-alpha-03
 
-public int Shell(string source)
-{
-    string[] commands = source.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
-
-    foreach (string command in commands)
-    {
-        string cmd_tmp = command.TrimStart();
-        if(IsRunningOnWindows())
-        {
-            if (cmd_tmp.StartsWith("::"))
-            {
-                continue;
-            }
-        }
-        if(IsRunningOnUnix())
-        {
-            if (cmd_tmp.StartsWith("#"))
-            {
-                continue;
-            }
-        }
-        int idx = cmd_tmp.IndexOf(" ", 0);
-        int len = cmd_tmp.Length;
-
-        Information("command  = " + cmd_tmp);
-        Information("    idx  = " + idx);
-        Information("    len  = " + len);
-        
-        string process_executable = null;
-        string process_args = null;
-        
-        if (idx > 0)
-        {
-            process_executable = cmd_tmp.Substring(0, idx);
-            process_args = cmd_tmp.Substring(idx + 1, len - idx - 1);
-            
-        StartProcess (process_executable, process_args);
-        }
-        
-        Information("    process_executable  = " + process_executable);
-        Information("    process_args        = " + process_args);
-    }
-    
-    return 0;
-}
     
 Task("external-01")
     .Does

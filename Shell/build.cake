@@ -58,7 +58,43 @@ Task("external-02")
             }    
         );
             
+Task("external-03")
+    .Does
+        (
+            () =>
+            {
+                Information($"target external-03");
+                
+                Shell("pwd");
+                Shell("rm -fr ./source");                
+                Shell("ls -al");
+                
+                if (!DirectoryExists ("./source"))
+                    CreateDirectory ("./source");
+
+                string command = 
+                        $"
+                            pwd
+
+                            ls
+
+                            set
+
+                            
+                            # git -C source init
+                            # git -C source remote add origin {REPO_URL}
+                            # git -C source fetch
+                            # git -C source checkout -tf origin/{REPO_BRANCH}
+                            # git -C source checkout -f {REPO_COMMIT}
+                            
+                            git clone --recursive https://github.com/xamarin/xamarin.auth.git source
+                         ";
+                         
+                Shell("ls -al");
+                Shell(command);
+            }    
+        );
     
 //RunTarget("clean");
 //RunTarget("external-01");
-RunTarget("external-02");
+RunTarget("external-03");

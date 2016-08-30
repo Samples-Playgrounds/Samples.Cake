@@ -1,3 +1,28 @@
+/*
+        Cake install
+                Windows:
+                
+                Invoke-WebRequest http://cakebuild.net/download/bootstrapper/windows -OutFile build.ps1
+                
+                Linux:
+
+                curl -Lsfo build.sh http://cakebuild.net/download/bootstrapper/linux
+                chmod +x build.sh
+				./build.sh
+
+                Mac OS X:
+
+                curl -Lsfo build.sh http://cakebuild.net/download/bootstrapper/osx
+                chmod +x build.sh
+				./build.sh
+
+
+                mono ./tools/Cake/Cake.exe --verbosity=diagnostic --target=externals
+                mono ./tools/Cake/Cake.exe --verbosity=diagnostic --target=libs
+                mono ./tools/Cake/Cake.exe --verbosity=diagnostic --target=nuget                
+                mono ./tools/Cake/Cake.exe --verbosity=diagnostic --target=samples
+*/
+
 #load "utilities.shell.cake"
 
 var target = Argument("target", "clean");
@@ -72,13 +97,16 @@ Task("external-03")
                 if (!DirectoryExists ("./source"))
                     CreateDirectory ("./source");
 
+                Shell("ls -al");
+
                 string command = 
                         $"
                             pwd
 
                             ls
 
-                            set
+                            # set bugg!!
+                            
 
                             
                             # git -C source init
@@ -90,7 +118,6 @@ Task("external-03")
                             git clone --recursive https://github.com/xamarin/xamarin.auth.git source
                          ";
                          
-                Shell("ls -al");
                 Shell(command);
             }    
         );

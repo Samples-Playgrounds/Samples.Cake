@@ -152,6 +152,12 @@ publish/
 #!**/packages/repositories.config
 #NuGet
 packages/
+# nuget v3 with project.json 
+# Oren Novotny 
+# http://www.bartlannoeye.com/blog/creating-nuget-packages-for-your-windows-10-uwp-libraries
+*.nuget.props
+*.nuget.targets
+*.lock.json
 
 # Microsoft Azure Build Output
 csx/
@@ -312,11 +318,19 @@ App_Data/*.ldf
 #----------------------------------------------
 
 #----------------------------------------------
+# Cake Build system
+tools/
+**/tools/
+#----------------------------------------------
+
+#----------------------------------------------
 # Xamarin Components and nuget packages
 **/Components/
 **/packages/
 src/samples/Components/**
 source/samples/Components/**
+source/Components/**
+samples/Components/**
 #----------------------------------------------
 
 #----------------------------------------------
@@ -350,12 +364,23 @@ source/samples/Components/**
 #----------------------------------------------
 # Xamarin Studio
 **/*.userprefs
+**/*.csproj.bak
 #----------------------------------------------
 
 #----------------------------------------------
 # Xamarin.Android
 # Security (project id etc)
-#**/AndroidManifest.xml
+# **/AndroidManifest.xml
+
+# ignore Xamarin.Android Resource.Designer.cs files
+**/Resource[s].[Dd]esigner.cs
+**/Resource[s].[Dd]esigner.cs
+**/Resources/Resource.[Dd]esigner.cs
+**/Resource.Designer.cs
+**/[Rr]esource.[Dd]esigner.cs
+#**/*.Droid/**/[Rr]esource.[Dd]esigner.cs
+#**/*.Android/**/[Rr]esource.[Dd]esigner.cs
+#**/Android/**/[Rr]esource.[Dd]esigner.cs
 #----------------------------------------------
 
 #----------------------------------------------
@@ -405,10 +430,47 @@ local.properties
 /docs/ubertesters.sdk.ios %
 
 
+
 #------------------------------------------
 # Xamarin.iOS build files
 **DerivedData**
 **build**
 lib/**
 #------------------------------------------
+
+#------------------------------------------
+# iOS build files
+**DerivedData**
+**build**
+lib/**
+#------------------------------------------
+
+#------------------------------------------
+# .net Core
+**/project.lock.json
+#------------------------------------------
+
+#------------------------------------------
+# JetBrains IntelliJ Rider IDE
+**/.idea/
+#------------------------------------------
+
+#------------------------------------------
+# Cake Build
+tools/**
+#------------------------------------------
+
+#------------------------------------------
+# Xamarin CI project structure
+output/**
+#------------------------------------------
+
+
+#------------------------------------------
+# Universal Windows Platform
+**/project.lock.json
+#------------------------------------------
+
 #==============================================================================
+df-post.txt
+df-pre.txt

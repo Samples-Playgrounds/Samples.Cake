@@ -5,10 +5,10 @@
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DefineConstants>TRACE;DEBUG;NETSTANDARD1_4;XAMARIN_AUTH_INTERNAL</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NETSTANDARD1_4</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType></DebugType>
-    <DefineConstants>TRACE;RELEASE;NETSTANDARD1_4;XAMARIN_AUTH_INTERNAL</DefineConstants>
+    <DefineConstants>TRACE;RELEASE;NETSTANDARD1_4</DefineConstants>
   </PropertyGroup>
 </Project>
